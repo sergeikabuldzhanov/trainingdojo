@@ -1,3 +1,4 @@
+// parent class
 const userPrototype = {
   sayName: function () {
     console.log(this.name, this.score);
@@ -20,6 +21,7 @@ const user = userCreator('Bob', 100);
 user.sayName();
 
 // now Implement inheritance by manually creating the prototype chain
+// Subclass
 const paidUserPrototype = {
   increaseBalance: function () {
     this.balance++;
