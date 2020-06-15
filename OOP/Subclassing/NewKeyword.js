@@ -36,5 +36,5 @@ paidUserCreator.prototype.increment_balance = function () {
 
 const user3 = new paidUserCreator("Bob", 8, 25);
 
-user3.increment_balance();
-user3.sayName();
+user3.increment_balance(); //25
+user3.sayName(); // "Bob"
