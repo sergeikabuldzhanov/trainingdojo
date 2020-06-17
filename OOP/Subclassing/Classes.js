@@ -18,7 +18,9 @@ const user2 = new User("Paul", 20);
 
 user1.sayName();
 
-class PaidUser extends User {
+class PaidUser extends User { // extends does 2 things
+    // 1. sets its prototype.__proto__ to prototype of parent class
+    // 2. sets PaidUser.__proto__ to User, child_class_proto__ to Parent class
   constructor(name, score, balance) {
     // super calls the parent class constructor function and sets the PaidUser.prototype.__proto__
     //   to User.prototype
