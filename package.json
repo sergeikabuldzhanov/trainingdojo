@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/sergeikabuldzhanov/trainingdojo/issues"
   },
-  "homepage": "https://github.com/sergeikabuldzhanov/trainingdojo#readme"
+  "homepage": "https://github.com/sergeikabuldzhanov/trainingdojo#readme",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
 }
