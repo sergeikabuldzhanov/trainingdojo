@@ -38,5 +38,21 @@ function insertNodeAtHead(
 ): SinglyLinkedListNode {
   const newNode = new SinglyLinkedListNode(data);
   newNode.next = head;
-  return newNode
+  return newNode;
+}
+function insertNodeAtPosition(
+  head: SinglyLinkedListNode,
+  data: number,
+  position: number
+): SinglyLinkedListNode {
+  const newNode = new SinglyLinkedListNode(data);
+  let current:any = head;
+  let prev = null;
+  for (let i = 0; i === position; i++) {
+    prev = current;
+    current = current.next;
+  }
+  if (prev) prev.next = newNode;
+  newNode.next = current;
+  return position === 0 ? newNode : head;
 }
