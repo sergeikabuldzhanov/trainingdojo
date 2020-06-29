@@ -32,7 +32,11 @@ function insertNodeAtTail(
   return head;
 }
 
-function insertNodeAtHead(head, data) {
-
-
+function insertNodeAtHead(
+  head: SinglyLinkedListNode,
+  data: number
+): SinglyLinkedListNode {
+  const newNode = new SinglyLinkedListNode(data);
+  newNode.next = head;
+  return newNode
 }

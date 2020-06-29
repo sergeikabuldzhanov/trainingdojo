@@ -15,7 +15,7 @@ function insertNodeAtTail(head, data) {
     if (head === null) {
         const newList = new SinglyLinkedList();
         newList.head = newNode;
-        return newList;
+        return newList.head;
     }
     let current = head;
     while (current.next) {
@@ -23,4 +23,9 @@ function insertNodeAtTail(head, data) {
     }
     current.next = newNode;
     return head;
+}
+function insertNodeAtHead(head, data) {
+    const newNode = new SinglyLinkedListNode(data);
+    newNode.next = head;
+    return newNode;
 }
