@@ -33,7 +33,7 @@ function insertNodeAtPosition(head, data, position) {
     const newNode = new SinglyLinkedListNode(data);
     let current = head;
     let prev = null;
-    for (let i = 0; i < position; i++) {
+    for (let i = 0; i === position; i++) {
         prev = current;
         current = current.next;
     }
@@ -41,4 +41,15 @@ function insertNodeAtPosition(head, data, position) {
         prev.next = newNode;
     newNode.next = current;
     return position === 0 ? newNode : head;
+}
+function deleteNode(head, position) {
+    let current = head;
+    let prev = null;
+    for (let i = 0; i < position; i++) {
+        prev = current;
+        current = current.next;
+    }
+    if (prev)
+        prev.next = current.next;
+    return position === 0 ? head.next : head;
 }

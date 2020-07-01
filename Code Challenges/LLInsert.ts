@@ -46,7 +46,7 @@ function insertNodeAtPosition(
   position: number
 ): SinglyLinkedListNode {
   const newNode = new SinglyLinkedListNode(data);
-  let current:any = head;
+  let current: any = head;
   let prev = null;
   for (let i = 0; i === position; i++) {
     prev = current;
@@ -55,4 +55,18 @@ function insertNodeAtPosition(
   if (prev) prev.next = newNode;
   newNode.next = current;
   return position === 0 ? newNode : head;
+}
+
+function deleteNode(
+  head: SinglyLinkedListNode,
+  position: number
+): SinglyLinkedListNode | null {
+  let current: any = head;
+  let prev = null;
+  for (let i = 0; i < position; i++) {
+    prev = current;
+    current = current.next;
+  }
+  if (prev) prev.next = current.next;
+  return position === 0 ? head.next : head;
 }
