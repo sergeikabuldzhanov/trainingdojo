@@ -53,3 +53,11 @@ function deleteNode(head, position) {
         prev.next = current.next;
     return position === 0 ? head.next : head;
 }
+function reversePrint(head) {
+    let output = "";
+    while (head) {
+        output = head.data + "\n" + output;
+        head = head.next;
+    }
+    return output;
+}
