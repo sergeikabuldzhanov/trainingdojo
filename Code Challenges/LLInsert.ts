@@ -79,3 +79,21 @@ function reversePrint(head: any) {
   }
   return output;
 }
+
+function reverse(
+  head: SinglyLinkedListNode | null
+): SinglyLinkedListNode | null {
+  if (head === null) return head;
+
+  let prev = null;
+  let next = head.next;
+  let current: any = head;
+
+  while (next) {
+    current.next = prev;
+    prev = current;
+    current = next;
+    next = next.next;
+  }
+  return current;
+}
