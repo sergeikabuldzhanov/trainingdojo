@@ -93,3 +93,16 @@ function mergeLists(headA, headB) {
     }
     return headA;
 }
+function getNode(head, positionFromTail) {
+    let length = 0;
+    let current = head;
+    while (current.next) {
+        length++;
+        current = current.next;
+    }
+    current = head;
+    for (let i = 0; i < length - positionFromTail; i++) {
+        current = current.next;
+    }
+    return current.data;
+}

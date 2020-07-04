@@ -116,3 +116,19 @@ function mergeLists(
   }
   return headA;
 }
+
+function getNode(head: SinglyLinkedListNode, positionFromTail: number): number {
+  let length = 0;
+  let current:any = head;
+  while (current.next) {
+    length++;
+    current = current.next;
+  }
+
+  current = head;
+  for (let i = 0; i < length - positionFromTail; i++) {
+    current = current.next;
+  }
+
+  return current.data;
+}
