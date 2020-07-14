@@ -132,3 +132,15 @@ function getNode(head: SinglyLinkedListNode, positionFromTail: number): number {
 
   return current.data;
 }
+
+function findMergeNode(headA:any, headB:any) {
+  const s = new Set();
+  while(headA){
+    s.add(headA);
+    headA = headA.next;
+  }
+  while(headB){
+    if(s.has(headB)) return headB.data;
+    headB = headB.next;
+  }
+}

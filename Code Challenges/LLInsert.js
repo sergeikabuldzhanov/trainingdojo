@@ -106,3 +106,15 @@ function getNode(head, positionFromTail) {
     }
     return current.data;
 }
+function findMergeNode(headA, headB) {
+    const s = new Set();
+    while (headA) {
+        s.add(headA);
+        headA = headA.next;
+    }
+    while (headB) {
+        if (s.has(headB))
+            return headB.data;
+        headB = headB.next;
+    }
+}
