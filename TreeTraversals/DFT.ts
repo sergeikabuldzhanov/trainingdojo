@@ -1,7 +1,7 @@
 interface Tree<T> {
     value: T
-    left: Tree<T> | null
-    right: Tree<T> | null
+    left?: Tree<T> | null
+    right?: Tree<T> | null
   }
 
 const preorderTraverse = (node:Tree<number>, array:number[]):number[] => {
