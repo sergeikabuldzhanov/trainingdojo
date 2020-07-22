@@ -18,7 +18,7 @@ interface User {
  * getUser             - function - a function that returns a user's object given an ID
  * degreesOfSeparation - number   - how many degrees of separation away to look on the graph
  */
-const findMostCommonTitle = (
+const findMostCommonTitleV1 = (
   myId: number,
   getUser: Function,
   degreesOfSeparation: number
@@ -70,6 +70,33 @@ const findMostCommonTitle = (
   }
 
   return mostCommonTitle;
+};
+
+const findMostCommonTitle = (
+  myId: number,
+  getUser: (value: number) => User,
+  degreesOfSeparation: number
+): string => {
+  let queue = [myId];
+  const seen: Set<number> = new Set();
+  const jobs: { [key: string]: number } = {};
+
+  for (let i = 0; i <= degreesOfSeparation; i++) {
+    queue = queue
+      .filter((id) => !seen.has(id))
+      .map(getUser)
+      .map((user) => {
+        jobs[user.title] = jobs[user.title] ? jobs[user.title] + 1 : 1;
+        seen.add(user.id);
+        return user.connections;
+      })
+      .reduce((acc, current) => acc.concat(current), []);
+  }
+
+  return Object.entries(jobs).reduce(
+    (acc, pair) => (pair[1] > acc[1] ? pair : acc),
+    ["", 0]
+  )[0];
 };
 
 // unit tests
