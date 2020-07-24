@@ -24,11 +24,16 @@ class LRUCache(dict):
 
 class LRUCache {
   capacity: number;
-  storage: Map<any, any>;
+  private storage: Map<any, any>;
   constructor(capacity: number) {
     this.capacity = capacity;
     this.storage = new Map();
   }
+
+  public get size(): number {
+    return this.storage.size;
+  }
+
   /**
    * @remarks returns value associated with that key, if there's no entry with that key returns -1
    * @param key key for the value to be retrieved
@@ -63,12 +68,16 @@ describe("LRUCache", () => {
   test("Adding items from zero to limit", () => {
     //setup
     const cache = new LRUCache(2);
+    expect(cache.size).toBe(0);
     cache.put(1, "A");
     expect(cache.get(1)).toBe("A");
+    expect(cache.size).toBe(1);
     cache.put(2, "B");
     expect(cache.get(2)).toBe("B");
+    expect(cache.size).toBe(2);
     cache.put(3, "C");
     expect(cache.get(3)).toBe("C");
+    expect(cache.size).toBe(2);
     expect(cache.get(1)).toBe(-1);
   });
 });
