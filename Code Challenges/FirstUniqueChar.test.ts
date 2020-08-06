@@ -9,6 +9,23 @@ return 0.
 s = "loveleetcode"
 return 2.
 
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        counter = [None for i in range(128)]
+        # iterate thorugh the string
+        for index, char in enumerate(s):
+            if not counter[ord(char)]:
+                counter[ord(char)] = [1, index]
+            else:
+                counter[ord(char)][0] += 1
+        min_index = float('inf')
+        for i in range(128):
+            if counter[i] and counter[i][0] == 1 and counter[i][1] <= min_index:
+                min_index = counter[i][1]
+        if min_index < float('inf'):
+            return min_index
+        return -1
+
 */
 var firstUniqChar = function (s: string): number {
   const charCount: { [key: string]: number[] } = {};
