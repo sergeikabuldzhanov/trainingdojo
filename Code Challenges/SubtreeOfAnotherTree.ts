@@ -39,3 +39,18 @@ Given tree t:
 
 Return false. 
 */
+
+type TreeOrNull = TreeNode | null;
+
+function isMatch(s: TreeOrNull, t: TreeOrNull): boolean {
+  if (!(s && t)) return s === t;
+  return (
+    s.val === t.val && isMatch(s.left, t.left) && isMatch(s.right, t.right)
+  );
+}
+
+function isSubtree(s: TreeOrNull, t: TreeOrNull): boolean {
+  if (isMatch(s, t)) return true;
+  if (!s) return false;
+  return isSubtree(s.left, t) || isSubtree(s.right, t);
+}
