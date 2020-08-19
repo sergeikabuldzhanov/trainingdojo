@@ -29,8 +29,8 @@ function copyRandomList(head: LLNode | null): LLNode | null {
   let current = head;
   while (current) {
     if (current.random) nodes.get(current).random = nodes.get(current.random);
+    current = current.next;
   }
 
   return nodes.get(head);
 }
-
