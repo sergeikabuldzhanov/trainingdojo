@@ -26,7 +26,7 @@ function helper(root: TreeNode | null) {
   return res;
 }
 
-function rob(root: TreeNode | null) {
+function rob3(root: TreeNode | null) {
   if (!root) return 0;
-  return Math.max(helper(root));
+  return Math.max(...helper(root));
 }
