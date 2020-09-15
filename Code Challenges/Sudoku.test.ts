@@ -1,110 +1,3 @@
-const board = [
-  ["5", "3", ".", ".", "7", ".", ".", ".", "."],
-  ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-  [".", "9", "8", ".", ".", ".", ".", "6", "."],
-  ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-  ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-  ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-  [".", "6", ".", ".", ".", ".", "2", "8", "."],
-  [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-  [".", ".", ".", ".", "8", ".", ".", "7", "9"],
-];
-
-const solution = [
-  ["5", "3", "4", "6", "7", "8", "9", "1", "2"],
-  ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
-  ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
-  ["8", "5", "9", "7", "6", "1", "4", "2", "3"],
-  ["4", "2", "6", "8", "5", "3", "7", "9", "1"],
-  ["7", "1", "3", "9", "2", "4", "8", "5", "6"],
-  ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
-  ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
-  ["3", "4", "5", "2", "8", "6", "1", "7", "9"],
-];
-
-const nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-function solveSudoku(board: string[][]): void {
-  // process the board and figure out what are the present digits for every row, column, and box
-  // initiazize everything with a full set of nums
-  const rows: Set<string>[] = new Array(9).fill(0).map(() => new Set(nums));
-  const cols: Set<string>[] = new Array(9).fill(0).map(() => new Set(nums));
-  const boxes: Set<string>[][] = new Array(3)
-    .fill(0)
-    .map(() => new Array(3).fill(0).map(() => new Set(nums)));
-  const stack: number[][] = [];
-  // here we remove the present nums from the possibilities
-  for (let row = 0; row < 9; row++) {
-    for (let col = 0; col < 9; col++) {
-      const cur = board[row][col];
-      if (cur === ".") {
-        stack.push([row, col]);
-        continue;
-      }
-      cols[col].delete(cur);
-      rows[row].delete(cur);
-      boxes[Math.floor(row / 3)][Math.floor(col / 3)].delete(cur);
-    }
-  }
-  //   console.log(stack);
-  function helper() {
-    if (!stack.length) return true;
-
-    const [row, col] = stack.pop();
-    const possibleDigits = nums.filter(
-      (dig) =>
-        rows[row].has(dig) &&
-        cols[col].has(dig) &&
-        boxes[Math.floor(row / 3)][Math.floor(col / 3)].has(dig)
-    );
-    // console.log(possibleDigits);
-    for (let dig of possibleDigits) {
-      board[row][col] = dig;
-      //   console.log(board);
-      rows[row].delete(dig);
-      cols[col].delete(dig);
-      boxes[Math.floor(row / 3)][Math.floor(col / 3)].delete(dig);
-      if (helper()) return true;
-      rows[row].add(dig);
-      cols[col].add(dig);
-      boxes[Math.floor(row / 3)][Math.floor(col / 3)].add(dig);
-      board[row][col] = ".";
-    }
-    stack.push([row, col]);
-    return false;
-  }
-  helper();
-}
-
-test("default test case", () => {
-  console.log(board);
-  solveSudoku(board);
-  console.log(board);
-  expect(board).toEqual(solution);
-});
-
-/* 
-1. class Solution:
-2.     def maxPathSum(self, root: TreeNode) -> int:
-3. 		max_path = float("-inf") # placeholder to be updated
-4. 		def get_max_gain(node):
-5. 			nonlocal max_path # This tells that max_path is not a local variable
-6. 			if node is None:
-7. 				return 0
-8. 				
-9. 			gain_on_left = max(get_max_gain(node.left), 0) # Read the part important observations
-10. 		gain_on_right = max(get_max_gain(node.right), 0)  # Read the part important observations
-11. 			
-12. 		current_max_path = node.val + gain_on_left + gain_on_right # Read first three images of going down the recursion stack
-13. 		max_path = max(max_path, current_max_path) # Read first three images of going down the recursion stack
-14. 			
-15. 		return node.val + max(gain_on_left, gain_on_right) # Read the last image of going down the recursion stack
-16. 			
-17. 			
-18. 	get_max_gain(root) # Starts the recursion chain
-19. 	return max_path		
-
-*/
 class BinaryHeap {
   content: any[];
   scoreFunction: any;
@@ -218,3 +111,127 @@ class BinaryHeap {
     }
   }
 }
+
+const board = [
+  ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+  ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+  [".", "9", "8", ".", ".", ".", ".", "6", "."],
+  ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+  ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+  ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+  [".", "6", ".", ".", ".", ".", "2", "8", "."],
+  [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+  [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+];
+
+const solution = [
+  ["5", "3", "4", "6", "7", "8", "9", "1", "2"],
+  ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
+  ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
+  ["8", "5", "9", "7", "6", "1", "4", "2", "3"],
+  ["4", "2", "6", "8", "5", "3", "7", "9", "1"],
+  ["7", "1", "3", "9", "2", "4", "8", "5", "6"],
+  ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
+  ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
+  ["3", "4", "5", "2", "8", "6", "1", "7", "9"],
+];
+
+const nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+function solveSudoku(board: string[][]): void {
+  // process the board and figure out what are the present digits for every row, column, and box
+  // initiazize everything with a full set of nums
+  const rows: Set<string>[] = new Array(9).fill(0).map(() => new Set(nums));
+  const cols: Set<string>[] = new Array(9).fill(0).map(() => new Set(nums));
+  const boxes: Set<string>[][] = new Array(3)
+    .fill(0)
+    .map(() => new Array(3).fill(0).map(() => new Set(nums)));
+  const stack = new BinaryHeap((el: number[]) => el[0]);
+  // here we remove the present nums from the possibilities
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      const cur = board[row][col];
+      if (cur === ".") {
+        // stack.push([row, col]);
+        continue;
+      }
+      cols[col].delete(cur);
+      rows[row].delete(cur);
+      boxes[Math.floor(row / 3)][Math.floor(col / 3)].delete(cur);
+    }
+  }
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      const cur = board[row][col];
+      if (cur === ".")
+        stack.push([
+          nums.filter(
+            (dig) =>
+              rows[row].has(dig) &&
+              cols[col].has(dig) &&
+              boxes[Math.floor(row / 3)][Math.floor(col / 3)].has(dig)
+          ).length,
+          row,
+          col,
+        ]);
+    }
+  }
+  //   console.log(stack);
+  function helper() {
+    if (!stack.size()) return true;
+
+    const [_, row, col] = stack.pop();
+    const possibleDigits = nums.filter(
+      (dig) =>
+        rows[row].has(dig) &&
+        cols[col].has(dig) &&
+        boxes[Math.floor(row / 3)][Math.floor(col / 3)].has(dig)
+    );
+    // console.log(possibleDigits);
+    for (let dig of possibleDigits) {
+      board[row][col] = dig;
+      //   console.log(board);
+      rows[row].delete(dig);
+      cols[col].delete(dig);
+      boxes[Math.floor(row / 3)][Math.floor(col / 3)].delete(dig);
+      if (helper()) return true;
+      rows[row].add(dig);
+      cols[col].add(dig);
+      boxes[Math.floor(row / 3)][Math.floor(col / 3)].add(dig);
+      board[row][col] = ".";
+    }
+    stack.push([possibleDigits.length, row, col]);
+    return false;
+  }
+  helper();
+}
+
+/* 
+1. class Solution:
+2.     def maxPathSum(self, root: TreeNode) -> int:
+3. 		max_path = float("-inf") # placeholder to be updated
+4. 		def get_max_gain(node):
+5. 			nonlocal max_path # This tells that max_path is not a local variable
+6. 			if node is None:
+7. 				return 0
+8. 				
+9. 			gain_on_left = max(get_max_gain(node.left), 0) # Read the part important observations
+10. 		gain_on_right = max(get_max_gain(node.right), 0)  # Read the part important observations
+11. 			
+12. 		current_max_path = node.val + gain_on_left + gain_on_right # Read first three images of going down the recursion stack
+13. 		max_path = max(max_path, current_max_path) # Read first three images of going down the recursion stack
+14. 			
+15. 		return node.val + max(gain_on_left, gain_on_right) # Read the last image of going down the recursion stack
+16. 			
+17. 			
+18. 	get_max_gain(root) # Starts the recursion chain
+19. 	return max_path		
+
+*/
+
+test("default test case", () => {
+  console.log(board);
+  solveSudoku(board);
+  console.log(board);
+  expect(board).toEqual(solution);
+});
