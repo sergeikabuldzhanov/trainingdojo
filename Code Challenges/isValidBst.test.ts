@@ -33,7 +33,7 @@ Explanation: The root node's value is 5 but its right child's value is 4.
 
 */
 
-class TreeNode {
+export class TreeNode {
   val: number;
   left: TreeNode | null;
   right: TreeNode | null;
